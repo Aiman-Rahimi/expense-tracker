@@ -1,9 +1,10 @@
 package com.rahimi.expensetracker.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 public class Expense {
@@ -15,22 +16,25 @@ public class Expense {
     private String description;
     private Double amount;
 
-    private LocalDateTime date; // ✅ Add this
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
 
     @ManyToOne
     @JoinColumn(name = "budget_id")
-    @JsonBackReference
+    @JsonIgnoreProperties({"expenses"}) // ✅ avoid infinite loop
     private Budget budget;
 
+    // Constructors
     public Expense() {}
 
-    public Expense(String description, Double amount, LocalDateTime date, Budget budget) {
+    public Expense(String description, Double amount, LocalDate date, Budget budget) {
         this.description = description;
         this.amount = amount;
         this.date = date;
         this.budget = budget;
     }
 
+    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -40,8 +44,8 @@ public class Expense {
     public Double getAmount() { return amount; }
     public void setAmount(Double amount) { this.amount = amount; }
 
-    public LocalDateTime getDate() { return date; } 
-    public void setDate(LocalDateTime date) { this.date = date; } 
+    public LocalDate getDate() { return date; }
+    public void setDate(LocalDate date) { this.date = date; }
 
     public Budget getBudget() { return budget; }
     public void setBudget(Budget budget) { this.budget = budget; }

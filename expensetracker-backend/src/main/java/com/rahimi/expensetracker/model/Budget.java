@@ -1,10 +1,9 @@
 package com.rahimi.expensetracker.model;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Budget {
@@ -16,9 +15,9 @@ public class Budget {
     private Double amount;
     private String icon;
 
-    @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<Expense> expenses = new ArrayList<>();
+    @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("budget")
+    private List<Expense> expenses;
 
     // Constructors
     public Budget() {}
