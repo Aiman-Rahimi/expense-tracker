@@ -14,6 +14,9 @@ public class Budget {
     private String name;
     private Double amount;
     private String icon;
+    private Integer month;
+    private Integer year;
+
 
     @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("budget")
@@ -42,4 +45,10 @@ public class Budget {
     
     public List<Expense> getExpenses() { return expenses; }
     public void setExpenses(List<Expense> expenses) { this.expenses = expenses; }
+
+    public Integer getMonth() {return month;}
+    public void setMonth(Integer month) {this.month = month;}
+
+    public Integer getYear() {return year;}
+    public void setYear(Integer year) {this.year = year;}
 }
