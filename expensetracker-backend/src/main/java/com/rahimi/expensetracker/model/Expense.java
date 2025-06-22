@@ -21,7 +21,7 @@ public class Expense {
 
     @ManyToOne
     @JoinColumn(name = "budget_id")
-    @JsonIgnoreProperties({"expenses"}) // ✅ avoid infinite loop
+    @JsonIgnoreProperties({"expenses"})
     private Budget budget;
 
     // Constructors
