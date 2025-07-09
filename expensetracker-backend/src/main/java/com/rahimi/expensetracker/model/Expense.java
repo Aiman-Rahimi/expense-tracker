@@ -24,6 +24,11 @@ public class Expense {
     @JsonIgnoreProperties({"expenses"})
     private Budget budget;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"budgets"})
+    private User user;
+
     // Constructors
     public Expense() {}
 
@@ -49,4 +54,7 @@ public class Expense {
 
     public Budget getBudget() { return budget; }
     public void setBudget(Budget budget) { this.budget = budget; }
+
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 }

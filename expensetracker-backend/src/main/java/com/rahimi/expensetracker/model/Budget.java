@@ -2,11 +2,11 @@ package com.rahimi.expensetracker.model;
 
 import jakarta.persistence.*;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Budget {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,6 +17,12 @@ public class Budget {
     private Integer month;
     private Integer year;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties("budgets")
+    private User user;
+
+    
 
     @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("budget")
@@ -24,13 +30,14 @@ public class Budget {
 
     // Constructors
     public Budget() {}
+
     public Budget(String name, Double amount, String icon) {
         this.name = name;
         this.amount = amount;
         this.icon = icon;
     }
 
-    // Getters and setters
+    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -42,13 +49,16 @@ public class Budget {
 
     public String getIcon() { return icon; }
     public void setIcon(String icon) { this.icon = icon; }
-    
+
+    public Integer getMonth() { return month; }
+    public void setMonth(Integer month) { this.month = month; }
+
+    public Integer getYear() { return year; }
+    public void setYear(Integer year) { this.year = year; }
+
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+
     public List<Expense> getExpenses() { return expenses; }
     public void setExpenses(List<Expense> expenses) { this.expenses = expenses; }
-
-    public Integer getMonth() {return month;}
-    public void setMonth(Integer month) {this.month = month;}
-
-    public Integer getYear() {return year;}
-    public void setYear(Integer year) {this.year = year;}
 }
