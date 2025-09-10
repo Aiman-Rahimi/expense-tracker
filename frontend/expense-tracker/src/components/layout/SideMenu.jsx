@@ -10,7 +10,7 @@ const SideMenu = ({activeMenu}) => {
     const navigate = useNavigate();
 
     const handleClick = (route) => {
-        if (route === "logout") {
+        if (route === "/logout") {
             handleLogout();
             return;
         }
@@ -31,7 +31,15 @@ const SideMenu = ({activeMenu}) => {
                 src={user.profileImageUrl}
                 alt="Profile Image"
                 className="w-20 h-20 bg-slate-400 rounded-full"
-            />) : <></>}
+            />
+            ) : (
+            <CharAvatar
+                fullName={user?.fullName || ""}
+                width="w-20"
+                height="h-20"
+                style="text-xl"
+            />
+        )}
 
         <h5 className='text-gray-950 font-medium leading-6'>
             {user?.fullName || ""}
